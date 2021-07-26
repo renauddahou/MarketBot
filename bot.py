@@ -205,14 +205,14 @@ def callback_handler(call):
 # Ajouter une catégorie
 @bot.callback_query_handler(func=lambda call: call.data == 'add_kat')
 def handle_add_kat(call):
-    sent = bot.send_message(call.message.chat.id, "Введите название категории", reply_markup=markups.return_to_menu())
+    sent = bot.send_message(call.message.chat.id, "Entrez un nom de catégorie", reply_markup=markups.return_to_menu())
     bot.register_next_step_handler(sent, base.add_kat)
 
 
-# Удаление категории
+# Suppression d'une catégorie
 @bot.callback_query_handler(func=lambda call: call.data == 'delete_kat')
 def handle_delete_kat(call):
-    bot.edit_message_text("Выберите категорию для удаления", call.message.chat.id,
+    bot.edit_message_text("Sélectionnez une catégorie à supprimer", call.message.chat.id,
                           call.message.message_id, reply_markup=markups.delete_kat())
 
 
@@ -227,7 +227,7 @@ def handle_delete_this_kat(call):
     print('deleted')
 
 
-# Добавление товара.
+# Ajout d'un produit.
 
 
 # Выбор типа товара
@@ -235,30 +235,30 @@ def handle_delete_this_kat(call):
 def handle_add_item_type(call):
     new_item = temp.Item()
     const.new_items_user_adding.update([(call.message.chat.id, new_item)])
-    sent = bot.send_message(call.message.chat.id, "Выберите тип товара:", reply_markup=markups.add_item())
+    sent = bot.send_message(call.message.chat.id, "Sélectionnez le type de produit:", reply_markup=markups.add_item())
     bot.register_next_step_handler(sent, base.add_item_kategory)
     const.user_adding_item_step.update([(call.message.chat.id, "Enter name")])
 
 
-# Ввод наименования товара
+# Saisir un nom de produit
 @bot.message_handler(func=lambda message: base.get_user_step(message.chat.id) == "Enter name")
 def handle_add_item_description(message):
-    sent = bot.send_message(message.chat.id, "Введите описание")
+    sent = bot.send_message(message.chat.id, "Entrez une description")
     bot.register_next_step_handler(sent, base.add_item_description)
     const.user_adding_item_step[message.chat.id] = "End"
 
 
-# Конец добавления товара
+# Fin de l'ajout du produit
 @bot.message_handler(func=lambda message: base.get_user_step(message.chat.id) == "End")
 def handle_add_item_end(message):
-    bot.send_message(message.chat.id, "Добавлено!\n Меню:", reply_markup=markups.show_types(message.chat.id))
+    bot.send_message(message.chat.id, "Ajouté!\nMenu :", reply_markup=markups.show_types(message.chat.id))
     const.user_adding_item_step.pop(message.chat.id)
 
 
-# Удаление товара
+# Suppression d'un produit
 @bot.callback_query_handler(func=lambda call: call.data == 'delete_item')
 def handle_delete_item(call):
-    bot.edit_message_text("Выберите товар для удаления", call.message.chat.id, call.message.message_id)
+    bot.edit_message_text("Choisissez un produit à enlever", call.message.chat.id, call.message.message_id)
     bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id,
                                   reply_markup=markups.delete_item(call.message.chat.id))
 
@@ -277,71 +277,71 @@ def handle_delete_from_db(call):
 @bot.message_handler(content_types=['text'])
 def bank(message):
     markup_start = telebot.types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
-    markup_start.row('Как работает', 'Сделать заказ')
-    markup_start.row('Отзывы', 'Поддержка')
-    markup_start.row('Стать продавцом')
+    markup_start.row("Comment ça marche", "Passer une commande")
+    markup_start.row("Feedback", "Support")
+    markup_start.row('Devenir un vendeur')
     keyboard1 = telebot.types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
-    keyboard1.row('Сделать заказ', 'Отзывы')
-    keyboard1.row('Поддержка', 'Стать продавцом')
+    keyboard1.row("Passer une commande", "Commentaires")
+    keyboard1.row("Support", "Devenir vendeur")
     keyboard3 = telebot.types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
-    keyboard3.row('Как работает', 'Сделать заказ')
-    keyboard3.row('Поддержка', 'Стать продавцом')
+    keyboard3.row("Comment ça marche", "Passer une commande")
+    keyboard3.row("Support", "Devenir vendeur")
     keyboard4 = telebot.types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
-    keyboard4.row('Как работает', 'Сделать заказ')
-    keyboard4.row('Отзывы', 'Стать продавцом')
+    keyboard4.row("Comment ça marche", "Passer une commande".)
+    keyboard4.row("Commentaire", "Devenir vendeur".)
     keyboard5 = telebot.types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
-    keyboard5.row('Как работает', 'Сделать заказ')
-    keyboard5.row('Отзывы', 'Поддержка')
+    keyboard5.row("Comment ça marche", "Passer une commande".)
+    keyboard5.row('Feedback', 'Support')
     markup_oplata = types.InlineKeyboardMarkup()
     markup_oplata.add(*[types.InlineKeyboardButton(text=name, callback_data=name) for name in ['Купить']])
-    if message.text == 'Как работает':
+    if message.text == 'Comment ça marche':
         print('Как работает')
         bot.send_message(message.chat.id,
-                         'Сервис полностью автоматизирован, поэтому процесс от покупки до получения клада составляет не более 1 часа.\n'
-                         'Для совершения заказа вам необходимо перейти в раздел "Сделать заказ", указать ваш город и бот автоматически найдет продавцов на нашей площадке в вашем городе и покажет товар имеющийся в наличии.\n'
-                         'После выбора товара вам будут предоставлены личные реквизиты для оплаты. Наша площадка поддерживает 2 способа оплаты: Qiwi и Btc, каждый продавец выставляет свои реквизиты, поэтому некоторые товары можно будет купить только за Qiwi или только за Btc.\n'
-                         'При оплате на счет Qiwi, в комментарии к платежу обязательно указывайте ваш ник в Telegram в формате @helpramp. В противном случае платеж не будет зачислен в автоматическом режиме.\n'
-                         'При оплате Btc, выдаваемый вам адрес Btc кошелька привязывается к вашему нику в Telegram, после получения 1 подтверждения Бот автоматически подтвердит поступление средств и спросит вас номер товара. Укажите его в формате 578040.\n'
-                         'После проведения перевода нажмите на кнопку "Я оплатил", Бот автоматически проверит ваш платеж и выдаст вам адрес клада со всей дополнительной информацией (зависит от продавца и его кладменов).\n'
-                         'Вы можете оставить отзыв о товаре или продавце на сайте http://ramp24vqtden6hep.onion/number или написав в службу поддержки @helpramp, указав личный  номер резерва кошельков.',
+                         "Le service est entièrement automatisé, de sorte que le processus, de l'achat à la collecte, ne dure pas plus d'une heure.\n"
+                         "Pour passer une commande, il vous suffit d'aller sur 'Passer une commande', d'indiquer votre ville et le robot trouvera automatiquement les vendeurs de notre plateforme dans votre ville et vous montrera les produits disponibles.\n"
+                         'Après avoir sélectionné un article, vous recevrez des informations personnelles pour le paiement. Notre site supporte 2 méthodes de paiement : cash et Btc, chaque vendeur mettra ses détails, ainsi certains articles ne peuvent être achetés que pour cash ou seulement pour Btc.\n'
+                         'Lorsque vous payez sur le compte cash, veillez à indiquer votre surnom Telegram au format @vous dans le commentaire du paiement. Sinon, le paiement ne sera pas crédité automatiquement.\n'
+                         "Lorsque vous payez en Btc, l'adresse du portefeuille Btc qui vous a été donnée est liée à votre pseudo Telegram. Après avoir reçu 1 confirmation, le Bot confirmera automatiquement la réception des fonds et vous demandera le numéro de l'article. Entrez-le dans le format 578040.\n"
+                         "Après avoir effectué le transfert, cliquez sur le bouton 'J'ai payé', le robot vérifiera automatiquement votre paiement et vous donnera l'adresse du trésor avec toutes les informations supplémentaires (cela dépend du vendeur et de ses chasseurs de trésors).\n"
+                         'Vous pouvez laisser des commentaires sur le produit ou le vendeur  en écrivant à ... avec votre numéro de réserve personnel.',
                          parse_mode='HTML', reply_markup=keyboard1)
-    if message.text == 'Отзывы':
-        print('Отзывы')
+    if message.text == 'Commentaires':
+        print('Commentaires')
         bot.send_message(message.chat.id,
-                         'Вы можете найти всю необходимую информацию о работе автоматического Бота на форумах:\n'
+                         'Vous trouverez toutes les informations nécessaires sur le fonctionnement du bot automatique dans les forums:\n'
                          'http://ramp24vqtden6hep.onion/info\n'
                          'http://lkncc.cc/newrampbot\n'
                          'http://leomarketjdridoo.onion/newrampbot\n'
                          'http://eeyovrly7charuku.onion/newrampbot\n'
                          'http://tochka3evjl3sxdv.onion/newrampbot\n'
-                         'Так же вы можете оставлять отзывы о товаре или продавце на сайте http://ramp24vqtden6hep.onion/number, указав личный  номер резерва кошельков.',
+                         "Vous pouvez également laisser des commentaires sur le produit ou le détaillant à l'adresse .... avec votre numéro de réserve personnel.",
                          parse_mode='HTML', reply_markup=keyboard3)
-    if message.text == 'Поддержка':
-        print('Поддержка')
+    if message.text == 'Support':
+        print('Support')
         bot.send_message(message.chat.id,
-                         'Если у вас возникли трудности, проблемы с оплатой или получением клада, или у вас есть вопросы о работе Бота- вы можете связаться со службой поддержки @Newrampbot в Telegram @helpramp.',
+                         "Si vous rencontrez des difficultés pour payer ou récupérer un colis, ou si vous avez des questions sur le fonctionnement du bot, vous pouvez contacter l'équipe d'assistance de @equipe sur Telegram @equipe.",
                          parse_mode='HTML', reply_markup=keyboard4)
-    if message.text == 'Стать продавцом':  # К ЭТОЙ КНОПКЕ НУЖНО ПОДРУБИТЬ ФОТО И ВИДЕО
-        print('Стать продавцом')
+    if message.text == 'Devenir un vendeur':  # К ЭТОЙ КНОПКЕ НУЖНО ПОДРУБИТЬ ФОТО И ВИДЕО
+        print('Devenir un vendeur')
         bot.send_message(message.chat.id,
-                         'Для того, чтобы стать продавцом на нашей площадке, вам необходимо преобрести Месячный или Пожизненный тариф продавца.\n'
-                         'Стоимость подключения:\n'
-                         '5000 Рублей в месяц с возможностью продления тарифа до Пожизненного;\n'
-                         '50000 Рублей - Пожизненный тариф продавца.\n'
-                         'В эту стоимость включено:\n'
-                         'Удобная Админ-панель с возможностью выкладывать товары с фотографиями (Только в WEB версии), добавлять ваши реквизиты и готовые адреса закладок прямо из мессенджера Telegram.\n'
-                         'Поддержка продавцов 24/7.\n'
-                         'Никаких дополнительных комиссий, оплата за товар производится только на ваши счета или кошельки.\n'
-                         'Для подключения тарифа продавца необходимо совершить перевод на наш счет Qiwi кошелька +79619218391 с указанием комментария к платежу вашего ника в Telegram в формате @helpramp.\n'
-                         'После проведения платежа с вами свяжется наш агент технической поддержки.', parse_mode='HTML',
+                         'Pour devenir vendeur sur notre site, vous devez acheter un tarif mensuel de vendeur ou un tarif à vie de vendeur.\n'
+                         'Frais de connexion:\n'
+                         "5000 francs par mois avec possibilité d'extension du tarif à la durée de vie.\n"
+                         '50000 francs-prix du vendeur à vie.\n'
+                         'Ce prix comprend:\n'
+                         "Panneau d'administration pratique avec la possibilité de publier des articles avec des photos (version WEB uniquement), d'ajouter vos coordonnées et des adresses de signets prêtes à l'emploi directement depuis la messagerie Telegram.\n"
+                         'Assistance aux fournisseurs 24 heures sur 24 et 7 jours sur 7.\n'
+                         'Pas de commissions supplémentaires, le paiement des marchandises se fait uniquement sur vos comptes ou portefeuilles.\n'
+                         "Afin d'activer le tarif du vendeur, vous devez effectuer un transfert vers notre compte Qiwi Wallet +79619218391 avec votre surnom Telegram au format @helpramp en commentaire du paiement.\n"
+                         "Après avoir effectué le paiement, vous serez contacté par notre agent d'assistance technique.", parse_mode='HTML',
                          reply_markup=keyboard5)
-    if message.text == 'Сделать заказ':
-        print('Сделать заказ')
-        sent = bot.send_message(message.chat.id, 'Укажите ваш город в формате #Город')
+    if message.text == 'Passer une commande':
+        print('Passer une commande')
+        sent = bot.send_message(message.chat.id, 'Entrez votre ville dans le format #Ville')
         bot.register_next_step_handler(sent, hello)
-    if message.text == 'Назад':
-        print('Назад')
-        bot.send_message(message.chat.id, 'Выберите кнопку.', parse_mode='HTML', reply_markup=markup_start)
+    if message.text == 'Feedback':
+        print('Feedback')
+        bot.send_message(message.chat.id, 'Sélectionnez le bouton.', parse_mode='HTML', reply_markup=markup_start)
 
 
 # Запуск бота
