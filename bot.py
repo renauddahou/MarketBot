@@ -116,7 +116,7 @@ def handle_price(message):
     bot.send_message(const.admin_id, ";".join([message.text, str(message.chat.id)]))
     bot.send_message(message.chat.id, text=u'Le numéro de réserve de votre panier personnel pendant 30 minutes: 1ae085ae-667c'.format(
         message.chat.id) + '-4155-bb9e-e84c6a7053c'.format(chat_id=message.chat.id) + '4\n'
-                                                                                      "Vous recevrez toutes les informations relatives à votre commande dès que vous l'aurez payée."\n'
+                                                                                      "Vous recevrez toutes les informations relatives à votre commande dès que vous l'aurez payée.\n"
                                                                                       'Montant du paiement = %d'
                                                                                       '--------------------------------\n'
                                                                                       'Détails pour le paiement BTC:\n'
