@@ -55,8 +55,8 @@ def is_seller():
 
 def add(id):
     markup = telebot.types.InlineKeyboardMarkup()
-    butp = telebot.types.InlineKeyboardButton('Я оплатил', callback_data='+' + str(id))
-    butm = telebot.types.InlineKeyboardButton('Отмена', callback_data='-' + str(id))
+    butp = telebot.types.InlineKeyboardButton("J'ai payé", callback_data='+' + str(id))
+    butm = telebot.types.InlineKeyboardButton('Annulation', callback_data='-' + str(id))
     markup.row(butp, butm)
     return markup
 
