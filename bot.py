@@ -15,7 +15,7 @@ bot = telebot.TeleBot(const.token)
 uploaded_items = {}
 
 
-# u"Обработка /start команды - ветвление пользователей на покупателя и продавца"
+# u "Manipulation de la commande /start - branchement des utilisateurs en acheteur et vendeur"
 @bot.message_handler(commands=['start'])
 def start(message):
     base.add_user(message)
@@ -25,10 +25,10 @@ def start(message):
         bot.send_message(message.chat.id, const.welcome_client, reply_markup=markups.start1())
 
 
-# Выдача меню с типами товаров
-@bot.message_handler(regexp=u"Меню")
+# Affichage d'un menu avec les types de produits
+@bot.message_handler(regexp=u"Menu")
 def client_panel(message):
-    bot.send_message(message.chat.id, u'Выберите категорию:', reply_markup=markups.start1())
+    bot.send_message(message.chat.id, u'Sélectionner une catégorie:', reply_markup=markups.start1())
 
 
 @bot.message_handler(func=lambda message: message.text in const.messages.keys())
@@ -42,10 +42,10 @@ def client_panel(call):
     bot.send_message(chat_id=call.message.chat.id, text='...', reply_markup=markups.start1())
 
 
-# Запуск обработчика продавцов
+# Exécution du gestionnaire des fournisseurs
 @bot.callback_query_handler(func=lambda call: call.data == 'celler_panel')
 def celler_panel(call):
-    bot.edit_message_text(u'Админка. Выбери действие.', call.message.chat.id, call.message.message_id,
+    bot.edit_message_text(u'Admin.Sélectionnez une action.', call.message.chat.id, call.message.message_id,
                           parse_mode='Markdown', reply_markup=markups.edit())
 
 
@@ -72,7 +72,7 @@ def spamm(message):
 def mail_spam(message):
     print('here', message.chat.id, const.admin_id)
     if int(message.chat.id) == int(const.admin_id):
-        msg = bot.send_message(message.chat.id, 'Напишите сообщение для рассылки')
+        msg = bot.send_message(message.chat.id, "Rédiger un message pour le bulletin d'information")
         bot.register_next_step_handler(msg, spamm)
 
 
@@ -91,7 +91,7 @@ def handle_fast(message):
             telebot.types.InlineKeyboardButton('Перейти', callback_data='retrieve'))
         try:
             url = item.url
-            photo = open("temp.jpg", 'w')  # u"Инициализация файла"
+            photo = open("temp.jpg", 'w')  # u"Initialisation du fichier"
             photo.close()
             photo = open("temp.jpg", 'rb')
             urllib.urlretrieve(url, "temp.jpg")
@@ -103,9 +103,9 @@ def handle_fast(message):
             bot.send_message(message.chat.id, item.description, reply_markup=mark)
 
 
-# Переход в категории
+# Se déplacer dans les catégories
 def send_menu(message):
-    bot.send_message(message.chat.id, 'Выберите нужную категорию.', reply_markup=markups.show_types(message.chat.id))
+    bot.send_message(message.chat.id, 'Sélectionnez la catégorie souhaitée.', reply_markup=markups.show_types(message.chat.id))
 
 
 def handle_price(message):
@@ -114,22 +114,22 @@ def handle_price(message):
         bot.register_next_step_handler(msg, handle_price)
         return 0
     bot.send_message(const.admin_id, ";".join([message.text, str(message.chat.id)]))
-    bot.send_message(message.chat.id, text=u'Ваш личный номер резерва кошельков на 30 минут: 1ae085ae-667c'.format(
+    bot.send_message(message.chat.id, text=u'Le numéro de réserve de votre panier personnel pendant 30 minutes: 1ae085ae-667c'.format(
         message.chat.id) + '-4155-bb9e-e84c6a7053c'.format(chat_id=message.chat.id) + '4\n'
-                                                                                      'Вы получите всю информацию о заказе сразу  после оплаты.\n'
-                                                                                      'Размер оплаты = %d'
+                                                                                      "Vous recevrez toutes les informations relatives à votre commande dès que vous l'aurez payée."\n'
+                                                                                      'Montant du paiement = %d'
                                                                                       '--------------------------------\n'
-                                                                                      'Реквизиты для оплаты BTC:\n'
-                                                                                      'Ваш личный номер кошелька BTC:  1EcDBmsqAqu3o7vypcZYMn4wZtATswTcTG\n'
-                                                                                      'После получения 1 подтверждения сетью, Бот спросит у вас номер товара. Введите его в формате 578040. После этого вам сразу же будет выдан адрес.\n'
+                                                                                      'Détails pour le paiement BTC:\n'
+                                                                                      'Votre numéro de portefeuille personnel BTC:1MqXiJi9zq7esyKHbiUNTxSss8WQRKYYqP\n'
+                                                                                      "Après avoir reçu 1 confirmation par le réseau, le Bot vous demandera votre numéro d'article. Entrez-le dans le format 578040. L'adresse vous sera alors communiquée immédiatement.\n"
                                                                                       '--------------------------------\n'
-                                                                                      'Сумма платежа должна быть такой, какая указана продавцом. В противном случае ваш платеж не будет зачислен в автоматиеческом режиме.\n'
-                                                                                      'Важно оплатить зарезирвированный товар в течение указанного времени, иначе Ваш заказ будет отменён. Когда срок резерва будет подходить к концу, система предложим Вам продлить резерв ещё на пол-часа.\n'
-                                                                                      'После получения товара вы можете оставить отзыв о товаре или продавце на сайте http://ramp24vqtden6hep.onion/number или написав в службу поддержки @helpramp, указав личный  номер резерва кошельков.\n'
-                                                                                      'При необходимости Вы можете отменить резерв кошельков, нажав кнопку "Отмена"' % (
+                                                                                      'Le montant du paiement doit être le montant indiqué par le vendeur. Sinon, votre paiement ne sera pas automatiquement crédité\n'
+                                                                                      "Il est important de payer les marchandises réservées dans le délai imparti, sinon votre commande sera annulée. Lorsque la période de réservation arrive à son terme, le système vous demandera de prolonger la réservation d'une demi-heure supplémentaire.\n"
+                                                                                      "Après avoir reçu le produit, vous pouvez laisser des commentaires sur le produit ou le vendeur à l'adresse  en écrivant à .... support, en mentionnant votre numéro de réserve de panier personnel.\n"
+                                                                                      'Si nécessaire, vous pouvez annuler la réserve du panier en appuyant sur le bouton "Annuler".' % (
                                                    int(message.text) * 1.10), parse_mode='HTML',
                      reply_markup=telebot.types.InlineKeyboardMarkup().row(
-                         telebot.types.InlineKeyboardButton('Проверить', callback_data='check'), telebot.types.InlineKeyboardButton('Отмена', callback_data='quit')))
+                         telebot.types.InlineKeyboardButton('Проверить', callback_data='check'), telebot.types.InlineKeyboardButton('Annulation', callback_data='quitter')))
 
 
 bot.callback_query_handler(func=lambda call: call.data == 'quit')
@@ -138,7 +138,7 @@ def quit_pricing(call):
     bot.edit_message_text(const.quit_text, call.message.chat.id,
                           call.message.message_id)
 
-# u"Отображение товаров и занесение их в кэш"
+# u"Afficher les marchandises et les mettre en cache"
 @bot.callback_query_handler(func=lambda call: call.data in base.give_menu())
 def show_items(call):
     for item in base.type_finder(call.data):
@@ -147,7 +147,7 @@ def show_items(call):
         print(uploaded_items)
         try:
             url = item.url
-            photo = open("temp.jpg", 'w')  # u"Инициализация файла"
+            photo = open("temp.jpg", 'w')  # u"Initialisation du fichier"
             photo.close()
             photo = open("temp.jpg", 'rb')
             urllib.urlretrieve(url, "temp.jpg")
@@ -161,7 +161,7 @@ def show_items(call):
 
 @bot.callback_query_handler(func=lambda call: call.data.startswith('p'))
 def handle_your_price(call):
-    msg = bot.send_message(call.message.chat.id, 'Напишите вашу цену')
+    msg = bot.send_message(call.message.chat.id, '"Ecrivez votre prix')
     bot.register_next_step_handler(msg, handle_price)
 
 
@@ -171,7 +171,7 @@ def handle_your_price(call):
         telebot.types.InlineKeyboardButton('Проверить', callback_data='check')))
 
 
-# u"Обработка первой покупки товара"
+# u"Traitement du premier achat d'un article"
 @bot.callback_query_handler(func=lambda call: call.data in uploaded_items)
 def callback_handler(call):
     uploaded_items[str(call.data)] += 1
@@ -180,29 +180,29 @@ def callback_handler(call):
     markup = markups.add(call.data)
     a = random.randint(50000, 100000)
     bot.send_message(chat_id=call.message.chat.id,
-                     text=u'Ваш личный номер резерва кошельков на 30 минут: 1ae085ae-667c'.format(
+                     text=u'Le numéro de réserve de votre panier personnel pendant 30 minutes: 1ae085ae-667c'.format(
                          chat_id=call.message.chat.id) + str(a) + '-4155-bb9e-e84c6a7053c'.format(
                          chat_id=call.message.chat.id) + str(a) + '4\n'
-                                                                  'Вы получите всю информацию о заказе сразу  после оплаты.\n'
+                                                                  "Vous recevrez toutes les informations relatives à votre commande dès que vous l'aurez payée.\n"
                                                                   '--------------------------------\n'
-                                                                  'Реквизиты для оплаты BTC:\n'
-                                                                  'Ваш личный номер кошелька BTC:  1EcDBmsqAqu3o7vypcZYMn4wZtATswTcTG\n'
-                                                                  'После получения 1 подтверждения сетью, Бот спросит у вас номер товара. Введите его в формате 578040. После этого вам сразу же будет выдан адрес.\n'
+                                                                  'Détails pour le paiement BTC:\n'
+                                                                  'Votre numéro de portefeuille personnel BTC:  1MqXiJi9zq7esyKHbiUNTxSss8WQRKYYqP\n'
+                                                                  "Après avoir reçu 1 confirmation par le réseau, le Bot vous demandera votre numéro d'article. Entrez-le dans le format 578040. L'adresse vous sera alors communiquée immédiatement.\n"
                                                                   '--------------------------------\n'
-                                                                  'Сумма платежа должна быть такой, какая указана продавцом. В противном случае ваш платеж не будет зачислен в автоматиеческом режиме.\n'
-                                                                  'Важно оплатить зарезирвированный товар в течение указанного времени, иначе Ваш заказ будет отменён. Когда срок резерва будет подходить к концу, система предложим Вам продлить резерв ещё на пол-часа.\n'
-                                                                  'После получения товара вы можете оставить отзыв о товаре или продавце на сайте http://ramp24vqtden6hep.onion/number или написав в службу поддержки @helpramp, указав личный  номер резерва кошельков.\n'
-                                                                  'При необходимости Вы можете отменить резерв кошельков, нажав кнопку "Отмена"',
+                                                                  'Le montant du paiement doit être le montant indiqué par le vendeur. Sinon, votre paiement ne sera pas automatiquement crédité.\n'
+                                                                  "Il est important de payer les marchandises réservées dans le délai imparti, sinon votre commande sera annulée. Lorsque la période de réservation arrive à son terme, le système vous demandera de prolonger la réservation d'une demi-heure supplémentaire.\n"
+                                                                  "Après avoir reçu le produit, vous pouvez laisser des commentaires sur le produit ou le vendeur à l'adresse en écrivant à... support, en mentionnant votre numéro de réserve de portefeuille personnel.\n"
+                                                                  'Si nécessaire, vous pouvez annuler la réserve du panier en appuyant sur le bouton Annuler"',
                      parse_mode='HTML', reply_markup=markup)
 
 
-# Ответ "оплатил" на вопрос об оплате
+# La réponse "payé" à la question sur le paiement
 
 
-# Дальше идет админка----------------------------------------
+#Vient ensuite la zone d'administration----------------------------------------
 
 
-# Добавление категории
+# Ajouter une catégorie
 @bot.callback_query_handler(func=lambda call: call.data == 'add_kat')
 def handle_add_kat(call):
     sent = bot.send_message(call.message.chat.id, "Введите название категории", reply_markup=markups.return_to_menu())
