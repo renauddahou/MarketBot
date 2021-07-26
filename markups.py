@@ -39,7 +39,7 @@ def make_bill():
 
 def return_to_menu():
     markup = telebot.types.ReplyKeyboardMarkup(True, False)
-    markup.row("Меню")
+    markup.row("Menu")
     return markup
 
 
