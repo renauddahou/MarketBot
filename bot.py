@@ -52,7 +52,7 @@ def celler_panel(call):
 @bot.callback_query_handler(func=lambda call: call.data == 'retrieve')
 def handle_retrieve(call):
     bot.send_message(call.message.chat.id, "TextHere", reply_markup=telebot.types.InlineKeyboardMarkup().row(
-        telebot.types.InlineKeyboardButton('В меню', callback_data="menu")))
+        telebot.types.InlineKeyboardButton('Au menu', callback_data="menu")))
 
 
 @bot.callback_query_handler(func=lambda call: call.data == 'menu')
@@ -129,7 +129,7 @@ def handle_price(message):
                                                                                       'Si nécessaire, vous pouvez annuler la réserve du panier en appuyant sur le bouton "Annuler".' % (
                                                    int(message.text) * 1.10), parse_mode='HTML',
                      reply_markup=telebot.types.InlineKeyboardMarkup().row(
-                         telebot.types.InlineKeyboardButton('Проверить', callback_data='check'), telebot.types.InlineKeyboardButton('Annulation', callback_data='quitter')))
+                         telebot.types.InlineKeyboardButton('Vérifiez', callback_data='check'), telebot.types.InlineKeyboardButton('Annulation', callback_data='quitter')))
 
 
 bot.callback_query_handler(func=lambda call: call.data == 'quit')
@@ -168,7 +168,7 @@ def handle_your_price(call):
 @bot.callback_query_handler(func=lambda call: call.data == 'check')
 def handle_your_price(call):
     bot.send_message(call.message.chat.id, 'Thisistext', reply_markup=telebot.types.InlineKeyboardMarkup().row(
-        telebot.types.InlineKeyboardButton('Проверить', callback_data='check')))
+        telebot.types.InlineKeyboardButton('Vérifiez', callback_data='check')))
 
 
 # u"Traitement du premier achat d'un article"
