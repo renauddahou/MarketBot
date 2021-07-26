@@ -114,13 +114,13 @@ class Item:
     def get_desc2(self):
         data = self.get_data()
         markup = telebot.types.InlineKeyboardMarkup()
-        btn_buy = telebot.types.InlineKeyboardButton(text="Ваша цена", callback_data='p'+ str(self.id))
+        btn_buy = telebot.types.InlineKeyboardButton(text="Votre prix", callback_data='p'+ str(self.id))
         markup.row(btn_buy)
         return markup
 
     def swap_desc(self):
         markup = telebot.types.InlineKeyboardMarkup()
-        btn_buy = telebot.types.InlineKeyboardButton(text='Ваша цена', callback_data='p'+ str(self.id))
+        btn_buy = telebot.types.InlineKeyboardButton(text='Votre prix', callback_data='p'+ str(self.id))
         markup.row(btn_buy)
         return markup
 
