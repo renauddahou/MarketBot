@@ -1,10 +1,10 @@
-token = ''
+token = '1897550776:AAEedZUqU66DKQYWXUq0m60DqepSyTeYFQY'
 
 # Приветственное сообщение
 welcome_celler = 'Привет селлер, что будем делать?'
 welcome_client = 'Воспользуйтесь нижней панелью для поиска нужной информации и покупки товара. Для вашего удобства все разделы поделены на основные категории.'
 
-admin_id = ''
+admin_id = '870305559'
 
 user_adding_item_step = {}
 new_items_user_adding = {}
