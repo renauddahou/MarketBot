@@ -27,13 +27,13 @@ class Basket:
                 self.items.remove(arg)
                 self.items.sort()
             except ValueError as e:
-                config.log(Error=e, Text="IMPOSSIBLE_DE_SUPPRIMER _CET_ARTICLE\nCET_ARTICLE_EXISTE_PAS")
+                config.log(Error=e, Text="CANT_DELETE_ITEM\nITEM_NOT_EXIST")
         if isinstance(arg,int):
             try:
                 self.items.remove(self.items[arg])
                 self.items.sort()
             except IndexError:
-                config.log(Error=e, Text="NE_PEUX_PAS_SUPPRIMER\nÉLÉMENT_DONT_INDEX_EXIST_PAS")
+                config.log(Error=e, Text="CANT_DELETE_ITEM\nITEM_WITH_SUCH_INDEX_NOT_EXIST")
 
     def get_items(self):
         args = []
