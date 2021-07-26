@@ -13,7 +13,7 @@ def start():
 def start1():
     markup_start = telebot.types.ReplyKeyboardMarkup()
     markup_start.row(*[i for i in const.messages.keys()])
-    markup_start.row("Argent", "Documents".)
+    markup_start.row("Argent", "Documents")
     markup_start.row('Airline/Hotels','Hacking')
     markup_start.row('Programmes/schémas')
     markup_start.row('Devenir un vendeur')
