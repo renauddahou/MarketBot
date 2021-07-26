@@ -32,4 +32,4 @@ messages = {
     'Panier': 'Message3'
 }
 menu_name = 'Garant'
-quit_text = 'Отменено'
+quit_text = 'Annulé'
