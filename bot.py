@@ -287,7 +287,7 @@ def bank(message):
     keyboard3.row("Comment ça marche", "Passer une commande")
     keyboard3.row("Support", "Devenir vendeur")
     keyboard4 = telebot.types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
-    keyboard4.row("Comment ça marche", "Passer une commande".)
+    keyboard4.row("Comment ça marche", "Passer une commande")
     keyboard4.row("Commentaire", "Devenir vendeur".)
     keyboard5 = telebot.types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
     keyboard5.row("Comment ça marche", "Passer une commande".)
