@@ -1,8 +1,8 @@
 token = '1897550776:AAEedZUqU66DKQYWXUq0m60DqepSyTeYFQY'
 
 # Приветственное сообщение
-welcome_celler = 'Привет селлер, что будем делать?'
-welcome_client = 'Воспользуйтесь нижней панелью для поиска нужной информации и покупки товара. Для вашего удобства все разделы поделены на основные категории.'
+welcome_celler = "Bonjour, vendeur, qu'est-ce qu'on peut faire pour vous ?"
+welcome_client = 'Utilisez la barre inférieure pour trouver les informations dont vous avez besoin et acheter un article. Pour votre commodité, toutes les sections sont divisées en catégories principales.'
 
 admin_id = '870305559'
 
@@ -10,26 +10,26 @@ user_adding_item_step = {}
 new_items_user_adding = {}
 
 types = {
-    'Деньги': 'Деньги',
-    'Документы': 'Документы',
-    'Авиа/Отели': 'Авиа/Отели',
-    'Взлом': 'Взлом',
-    'Программы/схемы':'Программы/схемы',
-    'Стать продавцом': 'Стать продавцом'
+    'Argent': 'Argent',
+    'Documents': 'Documents',
+    'Airline/Hotels': 'Airline/Hotels',
+    'Hacking': 'Hacking',
+    'Programmes/schémas':'Programmes/schémas',
+    'Devenir un vendeur': 'Devenir un vendeur'
 }
 
 msgs = {
-    'Деньги': 'Text1',
-    'Документы': 'Text2',
-    'Авиа/Отели': 'Text3',
-    'Взлом': 'Text4',
-    'Программы/схемы':'Text5',
-    'Стать продавцом': 'Text6'
+    'Argent': 'Text1',
+    'Documents': 'Text2',
+    'Airline/Hotels': 'Text3',
+    'Hacking': 'Text4',
+    'Programmes/schémas':'Text5',
+    'Devenir un vendeur': 'Text6'
 }
 messages = {
-    'О сервисе': 'Message1',
-    'Сделки': "Message2",
-    'Кошелек': 'Message3'
+    'A propos du service': 'Message1',
+    'Transactions': "Message2",
+    'Panier': 'Message3'
 }
-menu_name = 'Гарант'
+menu_name = 'Garant'
 quit_text = 'Отменено'
