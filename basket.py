@@ -8,32 +8,32 @@ class Basket:
     items_num = None
     items = []
 
-    def set_items(self, *args):         # на вход подается список готовых собранных объектов типа Item
+    def set_items(self, *args):         # Une liste d'objets prГ©-assemblГ©s de type Item est fournie Г  l'entrГ©e.
         for item in range(args):        # input = list of Items objects
             self.items.append(item)     # no output
             self.items_num += 1
             self.sum_price += Item.get_price()
 
-    def set_data_items(self, *args):     # на вход подается список , состоящий из структур данных типа Item.data_types
-        for data in range(args):        # из каждой Item.data_types структуры собирается объект Item
-            temp = Item()               # и переходит в основной список Basket.items[]
+    def set_data_items(self, *args):     # L'entrГ©e est fournie par une liste composГ©e de structures de donnГ©es du type Item.data_types
+        for data in range(args):        # Un objet Item est assemblГ© Г  partir de chaque structure Item.data_types.
+            temp = Item()               # et passe Г  l'inventaire principal de Basket.items[]
             temp.set_data(data)
             self.items.append(temp)
             temp.delete()
 
-    def delete_item(self, arg):         # удаляет объект из Basket.items[]
+    def delete_item(self, arg):         # supprime un objet de Basket.items[]
         if isinstance(arg,Item):
             try:
                 self.items.remove(arg)
                 self.items.sort()
             except ValueError as e:
-                config.log(Error=e, Text="CANT_DELETE_ITEM\nITEM_NOT_EXIST")
+                config.log(Error=e, Text="IMPOSSIBLE_DE_SUPPRIMER _CET_ARTICLE\nCET_ARTICLE_EXISTE_PAS")
         if isinstance(arg,int):
             try:
                 self.items.remove(self.items[arg])
                 self.items.sort()
             except IndexError:
-                config.log(Error=e, Text="CANT_DELETE_ITEM\nITEM_WITH_SUCH_INDEX_NOT_EXIST")
+                config.log(Error=e, Text="NE_PEUX_PAS_SUPPRIMER\nГ‰LГ‰MENT_DONT_INDEX_EXIST_PAS")
 
     def get_items(self):
         args = []
